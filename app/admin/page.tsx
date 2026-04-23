@@ -21,15 +21,11 @@ export default function AdminPage() {
   const savePlan = async () => {
     const method = editId ? "PUT" : "POST";
 
-    const body = editId
-      ? { id: editId, name, price }
-      : { name, price };
+    const body = editId ? { id: editId, name, price } : { name, price };
 
     const res = await fetch("/api/plans", {
       method,
-      headers: {
-        "Content-Type": "application/json"
-      },
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify(body)
     });
 
@@ -45,9 +41,7 @@ export default function AdminPage() {
   const deletePlan = async (id: number) => {
     await fetch("/api/plans", {
       method: "DELETE",
-      headers: {
-        "Content-Type": "application/json"
-      },
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ id })
     });
 
@@ -60,11 +54,25 @@ export default function AdminPage() {
     setEditId(plan.id);
   };
 
+  const logout = () => {
+    localStorage.clear();
+    window.location.assign("/auth/login");
+  };
+
   return (
     <main className="min-h-screen bg-[#F8F2EF] p-10">
-      <h1 className="text-5xl font-bold text-[#A26769] mb-8">
-        Admin Dashboard
-      </h1>
+      <div className="flex justify-between items-center mb-8">
+        <h1 className="text-5xl font-bold text-[#A26769]">
+          Admin Dashboard
+        </h1>
+
+        <button
+          onClick={logout}
+          className="bg-[#C38D94] text-white px-6 py-3 rounded-xl"
+        >
+          Logout
+        </button>
+      </div>
 
       <div className="bg-white p-8 rounded-3xl shadow-xl w-[520px] mb-12 border border-[#E9D7D1]">
         <h2 className="text-2xl font-bold text-[#A26769] mb-4">
@@ -87,7 +95,7 @@ export default function AdminPage() {
 
         <button
           onClick={savePlan}
-          className="bg-[#C38D94] hover:bg-[#B57D84] text-white px-6 py-3 rounded-xl w-full transition"
+          className="bg-[#C38D94] text-white px-6 py-3 rounded-xl w-full"
         >
           {editId ? "Update Plan" : "Add Plan"}
         </button>
@@ -97,7 +105,7 @@ export default function AdminPage() {
         {plans.map((plan) => (
           <div
             key={plan.id}
-            className="bg-white p-6 rounded-3xl shadow-lg hover:scale-105 transition border border-[#E9D7D1]"
+            className="bg-white p-6 rounded-3xl shadow-lg border border-[#E9D7D1]"
           >
             <h3 className="text-2xl font-bold text-[#A26769] mb-2">
               {plan.name}
@@ -110,14 +118,14 @@ export default function AdminPage() {
             <div className="flex gap-2">
               <button
                 onClick={() => editPlan(plan)}
-                className="bg-[#D8A7B1] hover:bg-[#CB96A2] text-white px-4 py-2 rounded-xl w-full transition"
+                className="bg-[#D8A7B1] text-white px-4 py-2 rounded-xl w-full"
               >
                 Edit
               </button>
 
               <button
                 onClick={() => deletePlan(plan.id)}
-                className="bg-[#E5989B] hover:bg-[#DB7F84] text-white px-4 py-2 rounded-xl w-full transition"
+                className="bg-[#E5989B] text-white px-4 py-2 rounded-xl w-full"
               >
                 Delete
               </button>

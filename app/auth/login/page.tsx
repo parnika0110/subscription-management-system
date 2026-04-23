@@ -22,9 +22,9 @@ export default function LoginPage() {
       localStorage.setItem("role", data.role);
 
       if (data.role === "admin") {
-        window.location.href = "/admin";
+        window.location.assign("/admin");
       } else {
-        window.location.href = "/dashboard";
+        window.location.assign("/dashboard");
       }
     } else {
       alert(data.message);
@@ -32,26 +32,30 @@ export default function LoginPage() {
   };
 
   return (
-    <main className="min-h-screen bg-[#F8F2EF] flex items-center justify-center">
-      <div className="bg-white p-10 rounded-3xl shadow-xl w-[420px] border border-[#E9D7D1]">
-        <h1 className="text-4xl font-bold text-[#A26769] mb-6 text-center">
-          Login
+    <main className="min-h-screen bg-[#F8F2EF] flex items-center justify-center px-4">
+      <div className="bg-white w-full max-w-md p-10 rounded-3xl shadow-xl border border-[#E9D7D1]">
+        <h1 className="text-4xl font-bold text-[#A26769] text-center mb-2">
+          Welcome Back
         </h1>
+
+        <p className="text-center text-gray-500 mb-6">
+          Login to continue
+        </p>
 
         <input
           type="email"
           placeholder="Email"
-          className="w-full border border-[#E9D7D1] p-3 mb-3 rounded-xl"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
+          className="w-full border border-[#E9D7D1] p-3 mb-3 rounded-xl outline-none"
         />
 
         <input
           type="password"
           placeholder="Password"
-          className="w-full border border-[#E9D7D1] p-3 mb-4 rounded-xl"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
+          className="w-full border border-[#E9D7D1] p-3 mb-4 rounded-xl outline-none"
         />
 
         <button
@@ -60,6 +64,10 @@ export default function LoginPage() {
         >
           Login
         </button>
+
+        <p className="text-center text-sm text-gray-500 mt-5">
+          New user? <a href="/auth/register" className="text-[#A26769] font-semibold">Register</a>
+        </p>
       </div>
     </main>
   );

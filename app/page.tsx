@@ -1,29 +1,31 @@
+import Link from "next/link";
+
 export default function Home() {
   return (
-    <main className="min-h-screen bg-gradient-to-br from-blue-600 to-purple-700 flex items-center justify-center px-6">
-      <div className="bg-white/10 backdrop-blur-lg border border-white/20 p-10 rounded-3xl shadow-2xl text-center w-full max-w-xl text-white">
-        <h1 className="text-5xl font-bold mb-4">
+    <main className="min-h-screen bg-[#F8F2EF] flex items-center justify-center px-4">
+      <div className="bg-white w-full max-w-xl p-12 rounded-3xl shadow-xl border border-[#E9D7D1] text-center">
+        <h1 className="text-5xl font-bold text-[#A26769] mb-3">
           Subscription Hub
         </h1>
 
-        <p className="text-lg text-gray-200 mb-8">
-          Manage plans, pricing and users in one place.
+        <p className="text-gray-500 text-lg mb-8">
+          Manage plans, pricing and users beautifully.
         </p>
 
         <div className="grid grid-cols-2 gap-4">
-          <a
+          <Link
             href="/auth/login"
-            className="bg-white text-blue-700 font-semibold py-3 rounded-2xl hover:scale-105 transition"
+            className="bg-[#C38D94] hover:bg-[#B57D84] text-white font-semibold py-3 rounded-xl transition"
           >
             Login
-          </a>
+          </Link>
 
-          <a
+          <Link
             href="/auth/register"
-            className="bg-black/30 text-white font-semibold py-3 rounded-2xl hover:scale-105 transition"
+            className="bg-[#D8A7B1] hover:bg-[#CB96A2] text-white font-semibold py-3 rounded-xl transition"
           >
             Register
-          </a>
+          </Link>
         </div>
       </div>
     </main>

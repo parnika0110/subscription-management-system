@@ -23,15 +23,19 @@ export default function RegisterPage() {
   };
 
   return (
-    <main className="min-h-screen bg-[#F8F2EF] flex items-center justify-center">
-      <div className="bg-white p-10 rounded-3xl shadow-xl w-[420px] border border-[#E9D7D1]">
-        <h1 className="text-4xl font-bold text-[#A26769] mb-6 text-center">
-          Register
+    <main className="min-h-screen bg-[#F8F2EF] flex items-center justify-center px-4">
+      <div className="bg-white w-full max-w-md p-10 rounded-3xl shadow-xl border border-[#E9D7D1]">
+        <h1 className="text-4xl font-bold text-[#A26769] text-center mb-2">
+          Create Account
         </h1>
 
+        <p className="text-center text-gray-500 mb-6">
+          Register to get started
+        </p>
+
         <input
-          placeholder="Name"
-          className="w-full border border-[#E9D7D1] p-3 mb-3 rounded-xl"
+          placeholder="Full Name"
+          className="w-full border border-[#E9D7D1] p-3 mb-3 rounded-xl outline-none"
           onChange={(e) =>
             setForm({ ...form, name: e.target.value })
           }
@@ -39,7 +43,7 @@ export default function RegisterPage() {
 
         <input
           placeholder="Email"
-          className="w-full border border-[#E9D7D1] p-3 mb-3 rounded-xl"
+          className="w-full border border-[#E9D7D1] p-3 mb-3 rounded-xl outline-none"
           onChange={(e) =>
             setForm({ ...form, email: e.target.value })
           }
@@ -48,7 +52,7 @@ export default function RegisterPage() {
         <input
           type="password"
           placeholder="Password"
-          className="w-full border border-[#E9D7D1] p-3 mb-4 rounded-xl"
+          className="w-full border border-[#E9D7D1] p-3 mb-4 rounded-xl outline-none"
           onChange={(e) =>
             setForm({ ...form, password: e.target.value })
           }
@@ -60,6 +64,10 @@ export default function RegisterPage() {
         >
           Register
         </button>
+
+        <p className="text-center text-sm text-gray-500 mt-5">
+          Already have an account? <a href="/auth/login" className="text-[#A26769] font-semibold">Login</a>
+        </p>
       </div>
     </main>
   );
