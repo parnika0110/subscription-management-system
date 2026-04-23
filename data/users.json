@@ -1,0 +1,16 @@
+[
+  {
+    "id": 1776959708311,
+    "name": "Parnika",
+    "email": "parnika@gmail.com",
+    "password": "$2b$10$bi0RM51xKnCMRznf/K16yuKsEfdasAjwwNzB4EVSVvLw4Ze372eni",
+    "role": "admin"
+  },
+  {
+    "id": 1776962743816,
+    "name": "Parnika",
+    "email": "parnika.sm2005@gmail.com",
+    "password": "$2b$10$r3LbuF5H/DOhCJ/oHUx1Gub.KdneSb8EIjTqug/OsmA2ry0CNdOzC",
+    "role": "user"
+  }
+]
