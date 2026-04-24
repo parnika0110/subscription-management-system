@@ -1,35 +1,26 @@
-import fs from "fs";
-import path from "path";
+import { connectDB } from "@/lib/mongodb";
+import User from "@/models/User";
 import bcrypt from "bcryptjs";
 
-const filePath = path.join(process.cwd(), "data", "users.json");
-
 export async function POST(req: Request) {
-  try {
-    const { name, email, password } = await req.json();
+  await connectDB();
 
-    const users = JSON.parse(fs.readFileSync(filePath, "utf8"));
+  const { name, email, password } = await req.json();
 
-    const existing = users.find((u: any) => u.email === email);
-    if (existing) {
-      return Response.json({ message: "Email exists" }, { status: 400 });
-    }
+  const existingUser = await User.findOne({ email });
 
-    const hashed = await bcrypt.hash(password, 10);
-
-    users.push({
-      id: Date.now(),
-      name,
-      email,
-      password: hashed,
-      role: "user"
-    });
-
-    fs.writeFileSync(filePath, JSON.stringify(users, null, 2));
-
-    return Response.json({ message: "Registered" });
-  } catch (error) {
-    console.log(error);
-    return Response.json({ message: "Error" }, { status: 500 });
+  if (existingUser) {
+    return Response.json({ message: "User already exists" }, { status: 400 });
   }
+
+  const hashedPassword = await bcrypt.hash(password, 10);
+
+  await User.create({
+    name,
+    email,
+    password: hashedPassword,
+    role: "user"
+  });
+
+  return Response.json({ message: "User registered successfully" });
 }

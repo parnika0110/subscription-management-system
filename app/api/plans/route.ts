@@ -1,51 +1,35 @@
-import fs from "fs";
-import path from "path";
-
-const filePath = path.join(process.cwd(), "data", "plans.json");
+import { connectDB } from "@/lib/mongodb";
+import Plan from "@/models/Plan";
 
 export async function GET() {
-  const plans = JSON.parse(fs.readFileSync(filePath, "utf8"));
+  await connectDB();
+  const plans = await Plan.find();
   return Response.json(plans);
 }
 
 export async function POST(req: Request) {
+  await connectDB();
   const { name, price } = await req.json();
 
-  const plans = JSON.parse(fs.readFileSync(filePath, "utf8"));
+  await Plan.create({ name, price });
 
-  plans.push({
-    id: Date.now(),
-    name,
-    price
-  });
-
-  fs.writeFileSync(filePath, JSON.stringify(plans, null, 2));
-
-  return Response.json({ message: "Plan Added" });
+  return Response.json({ message: "Plan added" });
 }
 
 export async function PUT(req: Request) {
+  await connectDB();
   const { id, name, price } = await req.json();
 
-  const plans = JSON.parse(fs.readFileSync(filePath, "utf8"));
+  await Plan.findByIdAndUpdate(id, { name, price });
 
-  const updated = plans.map((plan: any) =>
-    plan.id === id ? { ...plan, name, price } : plan
-  );
-
-  fs.writeFileSync(filePath, JSON.stringify(updated, null, 2));
-
-  return Response.json({ message: "Plan Updated" });
+  return Response.json({ message: "Plan updated" });
 }
 
 export async function DELETE(req: Request) {
+  await connectDB();
   const { id } = await req.json();
 
-  let plans = JSON.parse(fs.readFileSync(filePath, "utf8"));
+  await Plan.findByIdAndDelete(id);
 
-  plans = plans.filter((plan: any) => plan.id !== id);
-
-  fs.writeFileSync(filePath, JSON.stringify(plans, null, 2));
-
-  return Response.json({ message: "Plan Deleted" });
+  return Response.json({ message: "Plan deleted" });
 }
