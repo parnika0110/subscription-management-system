@@ -17,13 +17,7 @@ export async function POST(req: Request) {
     );
   }
 
-  let match = false;
-
-  if (user.password.startsWith("$2")) {
-    match = await bcrypt.compare(password, user.password);
-  } else {
-    match = password === user.password;
-  }
+  const match = await bcrypt.compare(password, user.password);
 
   if (!match) {
     return Response.json(
@@ -32,10 +26,7 @@ export async function POST(req: Request) {
     );
   }
 
-  const finalRole =
-    email.toLowerCase() === "parnika@gmail.com"
-      ? "admin"
-      : user.role;
+  const finalRole = user.role;
 
   const token = jwt.sign(
     {
